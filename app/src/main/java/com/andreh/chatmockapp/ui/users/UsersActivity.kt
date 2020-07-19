@@ -1,5 +1,6 @@
 package com.andreh.chatmockapp.ui.users
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -13,6 +14,7 @@ import com.andreh.chatmockapp.data.db.User
 import com.andreh.chatmockapp.data.db.UserDatabase
 import com.andreh.chatmockapp.data.repositories.UserRepository
 import com.andreh.chatmockapp.databinding.ActivityUsersBinding
+import com.andreh.chatmockapp.ui.chat.ChatActivity
 import com.andreh.chatmockapp.utils.randomString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -61,7 +63,10 @@ class UsersActivity : AppCompatActivity() {
         })
     }
 
-    private fun listItemClicked(subscriber: User) {
-        Toast.makeText(this, "selected name is ${subscriber.name}", Toast.LENGTH_LONG).show()
+    private fun listItemClicked(user: User) {
+        val intent = Intent(this, ChatActivity::class.java).apply {
+            putExtra("user", user.name)
+        }
+        startActivity(intent)
     }
 }
