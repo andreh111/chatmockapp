@@ -4,13 +4,12 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andreh.chatmockapp.R
-import com.andreh.chatmockapp.data.db.User
+import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.UserDatabase
 import com.andreh.chatmockapp.data.repositories.UserRepository
 import com.andreh.chatmockapp.databinding.ActivityUsersBinding
@@ -37,7 +36,13 @@ class UsersActivity : AppCompatActivity() {
             //generate 200 users if users table is empty
             if (repository.getNumUsers()==0){
                 for (i in 1..200) {
-                    repository.insert(User(0, ('a'..'z').randomString(8), 0))
+                    repository.insert(
+                        User(
+                            0,
+                            ('a'..'z').randomString(8),
+                            0
+                        )
+                    )
                 }
             }
         }
@@ -45,6 +50,7 @@ class UsersActivity : AppCompatActivity() {
 
     }
 
+    //initializing the recycler view
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         adapter =
@@ -54,7 +60,7 @@ class UsersActivity : AppCompatActivity() {
         displaySubscribersList()
     }
 
-
+    //displaying users list
     private fun displaySubscribersList() {
         usersViewModel.users.observe(this, Observer {
             Log.i("MYTAG", it.toString())
@@ -63,9 +69,11 @@ class UsersActivity : AppCompatActivity() {
         })
     }
 
+    //when clicking on a user, go to the chat screen
     private fun listItemClicked(user: User) {
         val intent = Intent(this, ChatActivity::class.java).apply {
             putExtra("user", user.name)
+            putExtra("userId", user.id)
         }
         startActivity(intent)
     }

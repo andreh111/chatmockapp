@@ -1,7 +1,7 @@
 package com.andreh.chatmockapp.data.repositories
 
-import com.andreh.chatmockapp.data.db.User
-import com.andreh.chatmockapp.data.db.UserDAO
+import com.andreh.chatmockapp.data.db.users.User
+import com.andreh.chatmockapp.data.db.users.UserDAO
 
 class UserRepository(private val dao : UserDAO) {
 

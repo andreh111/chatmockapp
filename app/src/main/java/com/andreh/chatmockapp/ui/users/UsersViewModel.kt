@@ -3,7 +3,7 @@ package com.andreh.chatmockapp.ui.users
 import androidx.databinding.Observable
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.andreh.chatmockapp.data.db.User
+import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.repositories.UserRepository
 import kotlinx.coroutines.launch
 

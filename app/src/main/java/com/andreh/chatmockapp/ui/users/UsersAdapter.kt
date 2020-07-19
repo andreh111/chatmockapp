@@ -5,11 +5,9 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.andreh.chatmockapp.R
-import com.andreh.chatmockapp.data.db.User
+import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.databinding.UserItemBinding
 import com.bumptech.glide.Glide
-import kotlinx.android.synthetic.main.user_item.view.*
-import kotlin.coroutines.coroutineContext
 
 class UsersAdapter(private val clickListener:(User)->Unit)
     : RecyclerView.Adapter<UserViewHolder>()
@@ -48,7 +46,7 @@ class UsersAdapter(private val clickListener:(User)->Unit)
 
 class UserViewHolder(val binding: UserItemBinding):RecyclerView.ViewHolder(binding.root){
 
-    fun bind(user: User,clickListener:(User)->Unit){
+    fun bind(user: User, clickListener:(User)->Unit){
         binding.username.text = user.name
         Glide.with(binding.root).load(user.photo).circleCrop().into(binding.userphoto)
         binding.listItemLayout.setOnClickListener{
