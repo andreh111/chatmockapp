@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical"
+    android:id="@+id/listItemLayout"
+    android:layout_marginBottom="2dp"
+    >
+
+    <ImageView
+        android:id="@+id/userphoto"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:padding="5dp"
+        android:scaleType="centerInside"
+         />
+
+    <TextView
+        android:id="@+id/username"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@+id/userphoto"
+        android:layout_toRightOf="@id/userphoto"
+        android:text="Username"
+        android:textColor="@android:color/holo_purple"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+    <TextView
+        android:id="@+id/lastmessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/userphoto"
+        android:layout_toEndOf="@+id/userphoto"
+        android:layout_below="@+id/username"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="14dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/holo_purple"
+        android:text="lastmessage"
+
+        />
+
+    <TextView
+        android:id="@+id/lastseen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/userphoto"
+        android:layout_toEndOf="@+id/userphoto"
+        android:layout_below="@+id/lastmessage"
+        android:layout_marginLeft="10dp"
+        android:layout_marginStart="10dp"
+        android:textSize="12dp"
+        android:textColor="@android:color/holo_purple"
+        android:text="lastseen"
+
+    />
+
+</RelativeLayout>
+</layout>

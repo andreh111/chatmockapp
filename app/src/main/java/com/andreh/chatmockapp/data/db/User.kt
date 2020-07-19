@@ -8,5 +8,6 @@ class User (
     @PrimaryKey(autoGenerate = true)
     var id: Int,
     var name: String,
-    val photo: String
+    var photo: Int
 )
+
