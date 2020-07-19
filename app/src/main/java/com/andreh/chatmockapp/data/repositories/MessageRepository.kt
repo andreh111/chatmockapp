@@ -9,4 +9,8 @@ class MessageRepository(private val dao: MessageDAO, private val userId: Int) {
     suspend fun insert(message: Message):Long{
         return dao.insertMessage(message)
     }
+
+    suspend fun countMessages(): Int{
+        return dao.countMessages()
+    }
 }

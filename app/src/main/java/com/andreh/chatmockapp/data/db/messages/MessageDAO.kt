@@ -14,5 +14,8 @@ interface MessageDAO {
     @Query("SELECT * FROM messages_data_table")
     fun getAllMessages(): LiveData<List<Message>>
 
+    @Query("SELECT COUNT(*) FROM messages_data_table")
+    suspend fun countMessages(): Int
+
 
 }
