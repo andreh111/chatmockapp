@@ -11,8 +11,8 @@ interface MessageDAO {
     @Insert
     suspend fun insertMessage(message: Message): Long
 
-    @Query("SELECT * FROM messages_data_table")
-    fun getAllMessages(): LiveData<List<Message>>
+    @Query("SELECT * FROM messages_data_table WHERE uid=:userId")
+    fun getAllMessages(userId: Int): LiveData<List<Message>>
 
     @Query("SELECT COUNT(*) FROM messages_data_table")
     suspend fun countMessages(): Int

@@ -8,7 +8,7 @@ import com.andreh.chatmockapp.data.db.messages.MessageDAO
 import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserDAO
 import com.andreh.chatmockapp.data.db.messages.Message
-@Database(entities = arrayOf(User::class, Message::class), version = 1)
+@Database(entities = arrayOf(User::class, Message::class), version = 1,exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
     abstract val subscriberDAO : UserDAO
