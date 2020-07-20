@@ -55,7 +55,7 @@ class ChatActivity : AppCompatActivity() {
 
         initRecyclerView()
 
-        button_chatbox_send.setOnKeyListener(
+        edittext_chatbox.setOnKeyListener(
             View.OnKeyListener { v, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
                     //Perform Code

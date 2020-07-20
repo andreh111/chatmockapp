@@ -10,23 +10,26 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_margin="10dp"
         android:orientation="vertical"
-        android:background="@drawable/sender">
+        android:background="@drawable/rounded_edge"
+        >
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chatItem_right_text"
-            android:textSize="20sp"
+            android:textSize="16sp"
+            android:textColor="#FFF"
             android:padding="7dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/chatItem_right_time"
-            android:maxWidth="80dp"
-            android:padding="2dp"
-            android:textSize="10sp"/>
+            android:textColor="#FFF"
+            android:padding="7dp"
+            android:textSize="12sp"/>
 
     </LinearLayout>
 

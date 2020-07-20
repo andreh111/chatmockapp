@@ -8,6 +8,10 @@ import androidx.lifecycle.viewModelScope
 import com.andreh.chatmockapp.data.db.messages.Message
 import com.andreh.chatmockapp.data.repositories.MessageRepository
 import kotlinx.coroutines.launch
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class ChatsViewModel(private val repository: MessageRepository) : ViewModel(), Observable {
 
@@ -23,11 +27,13 @@ class ChatsViewModel(private val repository: MessageRepository) : ViewModel(), O
     }
 
     fun insert() = viewModelScope.launch {
+        val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
+        val currentDate = sdf.format(Date())
         if (inputMessage!=null){
             var msg = Message(
                 messageid = 0,
-                message = inputMessage.value!!,
-                timestamp = "",
+                message = inputMessage.value!!.trim(),
+                timestamp = "${currentDate}",
                 userId = 1
             )
             inputMessage.value = null

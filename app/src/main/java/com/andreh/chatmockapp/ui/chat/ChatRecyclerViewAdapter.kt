@@ -5,7 +5,6 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.andreh.chatmockapp.data.db.messages.Message
-import com.andreh.chatmockapp.databinding.ChatitemLeftBinding
 import com.andreh.chatmockapp.databinding.ChatitemRightBinding
 
 class ChatRecyclerViewAdapter()
@@ -42,5 +41,6 @@ class ChatViewHolder(val binding: ChatitemRightBinding):RecyclerView.ViewHolder(
 
     fun bind(message: Message){
         binding.chatItemRightText.text = message.message
+        binding.chatItemRightTime.text = message.timestamp
     }
 }
