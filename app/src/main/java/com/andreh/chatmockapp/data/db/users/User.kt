@@ -4,7 +4,6 @@ import androidx.room.*
 import com.andreh.chatmockapp.data.db.messages.Message
 
 @Entity(tableName = "users_data_table")
-
 data class User(
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "userId")
@@ -20,6 +19,7 @@ data class UserWithMessages(
         entityColumn = "uid"
     )
     val messages: List<Message>
+
 )
 
 

@@ -6,9 +6,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andreh.chatmockapp.R
 import com.andreh.chatmockapp.data.db.UserDatabase
+import com.andreh.chatmockapp.data.db.messages.Message
 import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserWithMessages
 import com.andreh.chatmockapp.data.repositories.UserRepository
@@ -19,10 +21,6 @@ import com.andreh.chatmockapp.utils.randomString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
-import java.util.Objects.compare
-import kotlin.Comparator
 
 
 class UsersActivity : AppCompatActivity() {
@@ -53,12 +51,19 @@ class UsersActivity : AppCompatActivity() {
             }
         }
         initRecyclerView()
-
     }
 
     //initializing the recycler view
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
+
+        binding.recyclerView.addItemDecoration(
+            DividerItemDecoration(
+                binding.recyclerView.context,
+                DividerItemDecoration.VERTICAL
+            )
+        )
+
         adapter =
             UsersAdapter({ selectedItem: UserWithMessages -> listItemClicked(selectedItem) })
         binding.recyclerView.adapter = adapter
@@ -69,7 +74,14 @@ class UsersActivity : AppCompatActivity() {
     //displaying users list and sort them by timestamp
     private fun displaySubscribersList() {
         usersViewModel.users.observe(this, Observer {
-            it.map(dateTimeStrToLocalDateTime).sorted()
+            it.sortedByDescending {
+                if (it.messages.isEmpty()){
+                    it.owner.name
+                }else{
+                    it.messages.last().timestamp
+                }
+
+            }
 
             adapter.setList(it)
             adapter.notifyDataSetChanged()
