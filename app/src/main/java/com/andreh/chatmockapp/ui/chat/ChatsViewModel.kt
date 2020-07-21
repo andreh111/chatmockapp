@@ -44,6 +44,7 @@ class ChatsViewModel(private val repository: MessageRepository,private val userI
                     userId = userId
                 )
                 repository.insert(msg1)
+                randomDelay(0.0f,0.5f)
                 var msg2 = Message(
                     messageid = 0,
                     message = inputMessage.value!!.trim(),

@@ -5,14 +5,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.andreh.chatmockapp.R
-import com.andreh.chatmockapp.data.db.users.User
+import com.andreh.chatmockapp.data.db.users.UserWithMessages
 import com.andreh.chatmockapp.databinding.UserItemBinding
 import com.bumptech.glide.Glide
 
-class UsersAdapter(private val clickListener:(User)->Unit)
+class UsersAdapter(private val clickListener:(UserWithMessages)->Unit)
     : RecyclerView.Adapter<UserViewHolder>()
 {
-    private val usersList = ArrayList<User>()
+    private val userWithMessages = ArrayList<UserWithMessages>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UserViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -22,35 +22,37 @@ class UsersAdapter(private val clickListener:(User)->Unit)
     }
 
     override fun getItemCount(): Int {
-        return usersList.size
+        return userWithMessages.size
     }
 
 
-    fun setList(subscribers: List<User>) {
-        usersList.clear()
-        usersList.addAll(subscribers)
+    fun setList(userMessages: List<UserWithMessages>) {
+        userWithMessages.clear()
+        userWithMessages.addAll(userMessages)
 
     }
 
     override fun onBindViewHolder(holder: UserViewHolder, position: Int) {
-        val item = usersList.get(holder.adapterPosition)
+        val item = userWithMessages.get(holder.adapterPosition)
         if (position%2 == 0){
-            item.photo = R.drawable.p1
+            item.owner.photo = R.drawable.p1
         }else{
-            item.photo = R.drawable.p2
+            item.owner.photo = R.drawable.p2
         }
-        holder.bind(usersList[position],clickListener)
+        holder.bind(userWithMessages[position],clickListener)
     }
 
 }
 
 class UserViewHolder(val binding: UserItemBinding):RecyclerView.ViewHolder(binding.root){
 
-    fun bind(user: User, clickListener:(User)->Unit){
-        binding.username.text = user.name
-        Glide.with(binding.root).load(user.photo).circleCrop().into(binding.userphoto)
+    fun bind(userWithMessages: UserWithMessages, clickListener:(UserWithMessages)->Unit){
+        binding.username.text = userWithMessages.owner.name
+        binding.lastmessage.text = if(userWithMessages.messages.size > 0) userWithMessages.messages[userWithMessages.messages.size-1].message else ""
+        binding.lastseen.text = if(userWithMessages.messages.size > 0) userWithMessages.messages[userWithMessages.messages.size-1].timestamp else ""
+        Glide.with(binding.root).load(userWithMessages.owner.photo).circleCrop().into(binding.userphoto)
         binding.listItemLayout.setOnClickListener{
-            clickListener(user)
+            clickListener(userWithMessages)
         }
     }
 }

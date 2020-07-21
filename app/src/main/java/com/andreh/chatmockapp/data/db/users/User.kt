@@ -1,15 +1,25 @@
 package com.andreh.chatmockapp.data.db.users
 
-import androidx.room.ColumnInfo
-import androidx.room.Entity
-import androidx.room.PrimaryKey
+import androidx.room.*
+import com.andreh.chatmockapp.data.db.messages.Message
 
 @Entity(tableName = "users_data_table")
-class User (
+
+data class User(
     @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name="userId")
+    @ColumnInfo(name = "userId")
     var id: Int,
     var name: String,
     var photo: Int
 )
+
+data class UserWithMessages(
+    @Embedded val owner: User,
+    @Relation(
+        parentColumn = "userId",
+        entityColumn = "uid"
+    )
+    val messages: List<Message>
+)
+
 

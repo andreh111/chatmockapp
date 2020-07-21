@@ -8,26 +8,28 @@ import com.andreh.chatmockapp.data.db.messages.MessageDAO
 import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserDAO
 import com.andreh.chatmockapp.data.db.messages.Message
-@Database(entities = arrayOf(User::class, Message::class), version = 1,exportSchema = false)
+
+@Database(entities = arrayOf(User::class, Message::class), version = 3, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 
-    abstract val subscriberDAO : UserDAO
+    abstract val subscriberDAO: UserDAO
     abstract val messageDAO: MessageDAO
 
-    companion object{
+    companion object {
         @Volatile
-        private var INSTANCE : UserDatabase? = null
+        private var INSTANCE: UserDatabase? = null
 
-        fun getInstance(context: Context):UserDatabase{
-            synchronized(this){
+        fun getInstance(context: Context): UserDatabase {
+            synchronized(this) {
                 var instance = INSTANCE
-                if(instance==null){
+                if (instance == null) {
                     instance = Room.databaseBuilder(
                         context.applicationContext,
                         UserDatabase::class.java,
                         "user_data_database"
                     )
-                    .build()
+                        .fallbackToDestructiveMigration()
+                        .build()
                 }
                 return instance
             }
