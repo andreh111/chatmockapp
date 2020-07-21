@@ -1,8 +1,10 @@
 package com.andreh.chatmockapp.ui.users
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -20,6 +22,11 @@ import com.andreh.chatmockapp.utils.randomString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.sql.Timestamp
+import java.text.SimpleDateFormat
+import java.time.LocalDate
+import java.time.ZoneId
+import java.time.format.DateTimeFormatter
 
 
 @Suppress("IMPLICIT_CAST_TO_ANY")
@@ -27,6 +34,7 @@ class UsersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUsersBinding
     private lateinit var usersViewModel: UsersViewModel
     private lateinit var adapter: UsersAdapter
+    @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -59,6 +67,7 @@ class UsersActivity : AppCompatActivity() {
     }
 
     //initializing the recycler view
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun initRecyclerView() {
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
 
@@ -77,10 +86,17 @@ class UsersActivity : AppCompatActivity() {
     }
 
     //displaying users list and sort them by timestamp
+    @RequiresApi(Build.VERSION_CODES.O)
     private fun displaySubscribersList() {
         usersViewModel.users.observe(this, Observer {
             Log.d("mylist",it.toString())
-            adapter.setList(it)
+
+            //order chats by timestamp
+            adapter.setList(
+                it.sortedByDescending {
+                    it.messages.lastOrNull()?.timestamp
+                }
+            )
             adapter.notifyDataSetChanged()
         })
     }
