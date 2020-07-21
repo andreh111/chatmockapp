@@ -1,3 +1,7 @@
+<h1>Chat Mock App<h1>
+  
+<h4>Made with App Architecture MVVM</h4>
+
 To Run the Project just clone the repo or download it<br>
 Once Downloaded, Open it with Android Studio<br>
 It will just take some time to download some dependencies for the project<br>
