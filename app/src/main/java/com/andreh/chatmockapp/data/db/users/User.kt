@@ -3,6 +3,8 @@ package com.andreh.chatmockapp.data.db.users
 import androidx.room.*
 import com.andreh.chatmockapp.data.db.messages.Message
 
+
+//User Entity
 @Entity(tableName = "users_data_table")
 data class User(
     @PrimaryKey(autoGenerate = true)
@@ -18,7 +20,7 @@ data class UserWithMessages(
         parentColumn = "userId",
         entityColumn = "uid"
     )
-    val messages: List<Message>
+    var messages: List<Message>
 
 )
 

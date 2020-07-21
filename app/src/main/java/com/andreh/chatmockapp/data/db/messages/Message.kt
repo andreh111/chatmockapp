@@ -4,6 +4,8 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
+
+//Message Entity
 @Entity(
     tableName = "messages_data_table"
 )

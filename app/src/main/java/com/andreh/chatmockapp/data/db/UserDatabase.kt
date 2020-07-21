@@ -9,6 +9,7 @@ import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserDAO
 import com.andreh.chatmockapp.data.db.messages.Message
 
+//Database of The Application
 @Database(entities = arrayOf(User::class, Message::class), version = 3, exportSchema = false)
 abstract class UserDatabase : RoomDatabase() {
 

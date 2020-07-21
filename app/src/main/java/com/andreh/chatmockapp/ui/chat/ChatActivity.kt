@@ -24,15 +24,13 @@ class ChatActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        //binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_chat)
-
         val user = intent.getStringExtra("user")
         var userId = intent.getIntExtra("userId", 0)
-
         if (user != null) {
             setTitle(user)
         }
-
         val dao = UserDatabase.getInstance(application).messageDAO
         var repository = MessageRepository(dao, userId)
         val factory = ChatsViewModelFactory(repository,userId)
@@ -42,6 +40,7 @@ class ChatActivity : AppCompatActivity() {
 
         initRecyclerView()
 
+        //Add a Listener so if press keyboard enter the message will be sent
         edittext_chatbox.setOnKeyListener(
             View.OnKeyListener { v, keyCode, event ->
                 if (keyCode == KeyEvent.KEYCODE_ENTER && event.action == KeyEvent.ACTION_UP) {
@@ -71,6 +70,7 @@ class ChatActivity : AppCompatActivity() {
 
     }
 
+    //function to display user messages list
     private fun displayUserMessagesList() {
 
         chatsViewModel.messages.observe(this, Observer {

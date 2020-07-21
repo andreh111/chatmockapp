@@ -5,8 +5,9 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
-import com.andreh.chatmockapp.data.db.users.User
 
+
+//User Data Access Object
 @Dao
 interface UserDAO {
     @Insert

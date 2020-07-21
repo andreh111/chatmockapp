@@ -3,6 +3,8 @@ import androidx.lifecycle.LiveData
 import com.andreh.chatmockapp.data.db.messages.Message
 import com.andreh.chatmockapp.data.db.messages.MessageDAO
 
+
+//Message Repository
 class MessageRepository(private val dao: MessageDAO, private val userId: Int) {
 
     val messages = dao.getAllMessages(userId)

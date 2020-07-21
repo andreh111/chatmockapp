@@ -2,6 +2,7 @@ package com.andreh.chatmockapp.ui.users
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -10,25 +11,26 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.andreh.chatmockapp.R
 import com.andreh.chatmockapp.data.db.UserDatabase
-import com.andreh.chatmockapp.data.db.messages.Message
 import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserWithMessages
 import com.andreh.chatmockapp.data.repositories.UserRepository
 import com.andreh.chatmockapp.databinding.ActivityUsersBinding
 import com.andreh.chatmockapp.ui.chat.ChatActivity
-import com.andreh.chatmockapp.utils.dateTimeStrToLocalDateTime
 import com.andreh.chatmockapp.utils.randomString
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 
+@Suppress("IMPLICIT_CAST_TO_ANY")
 class UsersActivity : AppCompatActivity() {
     private lateinit var binding: ActivityUsersBinding
     private lateinit var usersViewModel: UsersViewModel
     private lateinit var adapter: UsersAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        //binding
         binding = DataBindingUtil.setContentView(this, R.layout.activity_users)
         val dao = UserDatabase.getInstance(application).subscriberDAO
         val repository = UserRepository(dao)
@@ -36,6 +38,9 @@ class UsersActivity : AppCompatActivity() {
         usersViewModel = ViewModelProvider(this, factory).get(UsersViewModel::class.java)
         binding.viewModel = usersViewModel
         binding.lifecycleOwner = this
+
+
+        //filling randomly 200 users when the app first starts it checks if the user table is empty it will fill it with random 200 users
         GlobalScope.launch(Dispatchers.Main) {
             //generate 200 users if users table is empty
             if (repository.getNumUsers() == 0) {
@@ -74,15 +79,7 @@ class UsersActivity : AppCompatActivity() {
     //displaying users list and sort them by timestamp
     private fun displaySubscribersList() {
         usersViewModel.users.observe(this, Observer {
-            it.sortedByDescending {
-                if (it.messages.isEmpty()){
-                    it.owner.name
-                }else{
-                    it.messages.last().timestamp
-                }
-
-            }
-
+            Log.d("mylist",it.toString())
             adapter.setList(it)
             adapter.notifyDataSetChanged()
         })

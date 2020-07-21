@@ -3,6 +3,8 @@ package com.andreh.chatmockapp.data.repositories
 import com.andreh.chatmockapp.data.db.users.User
 import com.andreh.chatmockapp.data.db.users.UserDAO
 
+
+//User Repository
 class UserRepository(private val dao : UserDAO) {
 
     val users = dao.getAllUsers()
